@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Admin Root</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/css/main_admin.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+
+            <div class="icons">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-vk"></i>
+                <i class="fab fa-telegram-plane"></i>
+                <i class="fab fa-discord"></i>
+            </div>
+
+            <div class="butt_row justify-content-center mt-3">
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+
+                    <a href="/Index" class="btn btn-outline-secondary mr-2">Home</a>
+                    @Html.ActionLink("Root", "Index", "Dashbord", "", new { @class = "btn btn-outline-warning mr-2" })
+
+
+                    <div class="dropdown open mr-2">
+                        <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Site Edit
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            @Html.ActionLink("Pages", "Index", "Pages", "", new { @class = "btn btn-outline-primary dropdown-item" })
+                            @Html.ActionLink("Categories", "Categories", "Shop", "", new { @class = "btn btn-outline-info dropdown-item" })
+                            @Html.ActionLink("Services", "Services", "Shop", "", new { @class = "btn btn-outline-info dropdown-item" })
+
+                        </div>
+                    </div>
+
+
+                    @Html.ActionLink("Sql query", "Index", "Query", "", new { @class = "btn btn-outline-success mr-2" })
+
+                    <div class="dropdown open">
+                        <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            View Tables
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            @Html.ActionLink("Orders", "Index", "Order", "", new { @class = "btn btn-info dropdown-item" })
+                            @Html.ActionLink("Users", "Index", "User", "", new { @class = "btn btn-info dropdown-item" })
+                            @Html.ActionLink("Clients", "Index", "Clients", "", new { @class = "btn btn-info dropdown-item" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <h1 class="header_text">Guitar Lab.</h1>
+
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Guitar Lab Admin zone</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    <!--Add juery bundle-->>
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <!--Add SKeditor-->
+    @Scripts.Render("~/bundles/ckeditor")
+    
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

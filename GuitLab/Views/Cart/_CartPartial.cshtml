@@ -1,0 +1,10 @@
+﻿@model GuitLab.Models.ViewModels.Cart.CartViewModel
+
+<div class="ajaxcart">
+
+    <br />
+    <i class="fas fa-shopping-cart" style="font-size:20px;"> @Html.ActionLink("Checkout", "Index")</i>
+
+    @Model.Quantity item(s) - @Model.Price $
+
+</div>

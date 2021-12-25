@@ -1,0 +1,92 @@
+﻿@model IEnumerable<GuitLab.Models.ViewModels.Lab.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<p>
+    @*Html.ActionLink("Create New", "CreateCategory", "", new { @class = "btn btn-success" })*@
+</p>
+
+<div class="new-cat">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">Category Name</span>
+        </div>
+        <input type="text" id="newcatname" class="form-control" value="" />
+    </div>
+
+    <p>
+        <a href="#" id="newcata" class="btn btn-success">Add category</a>
+        <span class="ajax-text">
+            <img src="~/Content/img/loader.gif" height="40" />
+        </span>
+    </p>
+</div>
+
+@if (!Model.Any())
+{
+    <h1 Class="text-center">There are not categories</h1>
+}
+else
+{
+
+    <table class="table sorting" id="pages">
+        <tr class="home">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="id_@item.Id">
+                <td>
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-0">
+                                <div class="ui-icon ui-icon-arrowthick-2-n-s"></div>
+                            </div>
+
+                            <div class="col">
+                                @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                            </div>
+
+                            <div class="col">
+                                <div class="ajaxdivtd"></div>
+                            </div>
+
+                            <div class="col-1">
+                                @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "delete btn btn-outline-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                </td>
+
+                <td>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+@section Scripts
+{
+    <script src="~/Content/GuitJs/CategoriesViewJs.js"></script>
+}

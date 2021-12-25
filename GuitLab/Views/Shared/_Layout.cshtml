@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Guitar Lab.</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="~/Content/css/main.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+
+            <div class="icons">
+                <a class="fab fa-instagram" href="https://www.instagram.com/oxeek/"></a>
+                <a class="fab fa-vk" href="https://vk.com/oxeek"></a>
+                <a class="fab fa-telegram-plane" href="https://web.telegram.org/oxeek"></a>
+                <a class="fab fa-discord" href="https://discord.com/channels/oxeek"></a>
+                
+            </div>
+
+
+            <h1 class="header_text">Guitar Lab.</h1>
+        </div>
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <ul class="navbar-nav mr-auto">
+                    @Html.Action("PagesMenuPartial", "Pages")
+
+                </ul>
+            </div>
+        </nav>
+        
+    </div>
+    <br />
+
+<div class="container body-content">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-3 list-group">
+                @Html.Action("CategoryMenuPartial", "Shop")
+
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <br />
+                    @Html.ActionLink("Admin Panel", "Index", "Dashbord", new { area = "Admin" }, new { @class = "btn btn-outline-warning" })
+                    <br />
+                }
+                else
+                {
+                    if (ViewBag.Title != "Cart Details")
+                    {
+                        <br />
+                        @Html.Action("CartPartial", "Cart")
+                        <br />
+                    }
+                    else
+                    {
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    }
+
+                }
+
+
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.Action("UserNavPartial", "Account", new { area = "" })
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+
+                    @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "btn btn-outline-danger", style = "text-decoration: none" })
+                }
+                else
+                {
+                    if (ViewBag.Title == "Login")
+                    {
+                        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "active btn btn-outline-info", style = "text-decoration: none" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-outline-info", style = "text-decoration: none" })
+                    }
+                }
+
+
+
+            </div>
+
+            <div class="col-9">
+                @RenderBody()
+            </div>
+            
+        </div>
+
+        
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Guitar Lab.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

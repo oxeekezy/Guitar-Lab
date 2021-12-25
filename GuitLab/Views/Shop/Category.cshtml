@@ -1,0 +1,28 @@
+﻿@model IEnumerable<GuitLab.Models.ViewModels.Lab.ServicesViewModel>
+
+@{
+    ViewBag.Title = ViewBag.CategoryName;
+}
+
+<link href="~/Content/css/main.css" rel="stylesheet" />
+
+<div class="row ml-4">
+    @foreach (var item in Model)
+    {
+
+        <div class="card mr-1 service_item" style="width: 15rem;">
+            <a href="shop/service-details/@item.Slug">
+                <img class="service_img" src="/Images/Uploads/Services/@item.Id/Thumbs/@item.ImageName" />
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Desc)</p>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Price)$</p>
+                <a href="/shop/service-details/@item.Slug" class="btn btn-outline-info">Details</a>
+            </div>
+        </div>
+
+    }
+</div>
+
+

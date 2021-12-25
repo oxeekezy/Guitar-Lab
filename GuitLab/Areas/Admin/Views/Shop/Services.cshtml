@@ -1,0 +1,95 @@
+﻿@model IEnumerable<GuitLab.Models.ViewModels.Lab.ServicesViewModel>
+
+@{
+    ViewBag.Title = "Services";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+
+<h2>Services</h2>
+<select id="SelectCategory" name="SelectCategory">
+    <option value="0">All</option>
+    @foreach (var item in ViewBag.Categories)
+    {
+        if (ViewBag.SelectedCat == item.Value)
+        {
+            <option selected="selected" value="@item.Value">@item.Text</option>
+        }
+        else
+        {
+            <option value="@item.Value">@item.Text</option>
+        }
+    }
+</select>
+<br/><br />
+
+<p>
+    @Html.ActionLink("Add new service", "AddService", "", new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+
+        <th>
+            Desc
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            
+        </th>
+
+    </tr>
+    
+    @foreach (var serv in ViewBag.onePageOfService)
+    {
+        <tr>
+            <td>
+                @serv.Name
+            </td>
+
+            <td>
+                @serv.Desc
+            </td>
+
+            <td>
+                @serv.Price
+            </td>
+
+            <td>
+                <a href="/admin/shop/EditService/@serv.Id">
+                    @if (serv.ImageName == null)
+                    {
+                        <img src="/Content/img/no_image.png" />
+                    }
+                    else
+                    {
+                        <img src="/Images/Uploads/Services/@serv.Id/Thumbs/@serv.ImageName" />
+                    }
+
+                </a>
+                
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "EditService", new {id = serv.Id}, new {@class = "btn btn-outline-success"})
+                @Html.ActionLink("Delete", "DeleteService", new {id = serv.Id}, new {@class = "btn btn-outline-danger delete"})
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager((IPagedList)ViewBag.onePageOfService, page => Url.Action("Services", new {page, catId=ViewBag.SelectedCat}))
+
+@section scripts
+{
+    <script src="~/Content/GuitJs/Services.js"></script>
+}

@@ -1,0 +1,86 @@
+﻿
+.header {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    height: 76px;
+    border: 2px solid black;
+    border-radius: 20px;
+
+    background-size: 700px 200px;
+    background-repeat: no-repeat;
+    background-position: 95% 20%;
+}
+
+.header_text {
+    padding-top: 5px;
+    padding-right: 15px;
+    font-family: 'Sansita Swashed', cursive;
+}
+
+.icons {
+    padding-left: 15px;
+    padding-top: 20px;
+    font-size: 25px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.links {
+    font-family: 'Kelly Slab', cursive;
+    margin-left: -10px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.link {
+    margin-left: 60px;
+}
+
+.service_item {
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 300px;
+    width: 280px;
+}
+
+.service_img {
+    padding-left: 5px;
+    padding-top: 5px;
+    height: 200px;
+    max-width: 270px;
+}
+
+.service_text {
+    font-family: 'Kelly Slab', cursive;
+    padding-left: 5px;
+}
+
+.price {
+    font-family: 'Kelly Slab', cursive;
+    padding-left: 5px;
+}
+
+.service_item:hover {
+    background-color: #EEEDD3;
+    transition: 1s;
+}
+
+.more {
+    text-align: center;
+    width: 100%;
+}
+
+.more_button {
+    font-family: 'Kelly Slab', cursive;
+    font-size: 20px;
+    padding: 20px;
+    background-color: #e5d21e;
+    color: black;
+    border-radius: 35px;
+}

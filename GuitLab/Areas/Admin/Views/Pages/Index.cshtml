@@ -1,0 +1,80 @@
+﻿@model IEnumerable<GuitLab.Models.ViewModels.Pages.PageViewModel>
+
+@{
+    ViewBag.Title = "Pages";
+}
+
+<h1> </h1>
+<h1> </h1>
+<h1> </h1>
+
+<h2>Pages in Guitar Lab project</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <h1 class="text-center">There are not pages.</h1>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Create New Page", "AddPage", "", new { @class = "btn btn-success" })
+    </p>
+    <table class="table sorting" id="pages">
+        <tr class="home">
+            <th>
+                Title
+            </th>
+            <th>
+                Slug
+            </th>
+            <th>
+                №
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr id="id_@item.Id" class="@item.Slug">
+                <td>
+                    @if (item.Slug != "home") 
+                    {
+                        <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                    }
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Slug)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sorting)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditPage", new { id = item.Id }, new { @class = "btn btn-outline-success" })
+                    @Html.ActionLink("Details", "PageDetails", new { id = item.Id }, new { @class = "btn btn-outline-warning" })
+
+                    @if (item.Slug != "home")
+                    {
+                        @Html.ActionLink("Delete", "DeletePage", new { id = item.Id }, new { @class = "delete btn btn-outline-danger" })
+                    }
+
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+
+@section Scripts
+{
+    <script src="~/Content/GuitJs/PagesIndexView.js"></script>
+}

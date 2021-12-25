@@ -1,0 +1,115 @@
+﻿@using System.Activities.Expressions
+@model IEnumerable<GuitLab.Models.ViewModels.Cart.CartViewModel>
+
+@{
+    ViewBag.Title = "Cart Details";
+}
+@if (Request.IsAuthenticated)
+{
+    @Html.ActionLink("History", "Orders", "Account", "", new { @class = "btn btn-outline-info" })
+}
+
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>
+}
+else
+{
+    <div class="ajaxbg" style="width: 100%; height: 100%;">
+        <span>
+            <img style="width: 100px; height: 100px;" src="~/Content/img/loader.gif" />
+        </span>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Image
+            </th>
+
+            <th>
+                Total
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+                <td class="qty@(item.ServiceId)">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)$
+                </td>
+                <td>
+                    <img src="/Images/Uploads/Services/@item.ServiceId/Thumbs/@item.Image" alt="Alternate Text" />
+                </td>
+
+                <td class="total@(item.ServiceId)">
+                    @Html.DisplayFor(modelItem => item.Total)$
+                </td>
+                <td>
+                    <ul class="ul_list">
+                        <li class="cart_btns"><a href="#" class="incservice" data-id="@item.ServiceId"><i class="fas fa-plus-circle"></i></a></li>
+                        <li class="cart_btns"><a href="#" class="decService" data-id="@item.ServiceId"><i class="fas fa-minus-circle"></i></a></li>
+                        <li class="cart_btns"><a href="#" class="removeService" data-id="@item.ServiceId"><i class="fas fa-trash"></i></a></li">
+                    </ul>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> <a style="height: 37px; width: 145px; align-content: center;" class="placeorder btn btn-outline-success">Make an order</a> </td>
+            <td class="grandtotal"><b>Total: </b><span>@ViewBag.GrandTotal$</span></td>
+        </tr>
+    </table>
+}
+
+@section Scripts
+{
+    <script src="~/Content/GuitJs/incrementService.js"></script>
+
+    <script>
+
+        /* Place order */
+        $(function () {
+
+            $("a.placeorder").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var url = "/cart/PlaceOrder";
+
+                $(".ajaxbg").show();
+
+                $.post(url,
+                    {},
+                    function (data) {
+                        $(".ajaxbg span").text("Thank you for using Guitar Lab services soon you will receive a notification by email.Good luck");
+
+                        setTimeout(function () {
+                            $('form input[name = "submit"]').click();
+                        }, 2000);
+                    });
+            });
+        });
+    </script>
+}

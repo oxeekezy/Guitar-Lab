@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "SqlError";
+}
+<br />
+<br />
+<h2>Found an error in SQL query</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["msg"]
+    </div>
+}
+
+@Html.ActionLink("Back", "Index", "Query", "", new { @class = "btn btn-outline-danger" })
+
+

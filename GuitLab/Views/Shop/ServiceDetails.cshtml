@@ -1,0 +1,108 @@
+﻿
+
+@model GuitLab.Models.ViewModels.Lab.ServicesViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+
+
+<div class="card bg-light mb-3" style="max-width: 55rem;">
+    <div class="card-header">@Model.Name</div>
+    <div class="card-body">
+        <p class="card-text text-white">
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <img src="/Images/Uploads/Services/@Model.Id/Thumbs/@Model.ImageName" />
+                </div>
+
+                <div class="col-sm-12 col-md-7">
+                    @Html.DisplayFor(model => model.Desc)
+                    <br />
+                    @Html.DisplayFor(model => model.Price)$
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div class="addtocart">
+                            <br />
+                            <a href="#" style="margin-left: 0px;" class="addtocart btn btn-outline-success"><i class="fas fa-cart-plus"></i></a>
+                            <span class="loader">
+                                <img src="~/Content/img/loader.gif" height="45" width="45" />
+                            </span>
+
+                            <br /><br />
+                            <div class="ajaxmsg" style="margin-left: 0px;">
+                                The service has been added to your cart.
+                            </div>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div style="color: red;">You need to login</div>
+                    }
+
+                </div>
+            </div>
+        </p>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 fancyboxdiv">
+        <br/><br/>
+        <div class="row">
+            @foreach (var item in Model.GalleryImages)
+            {
+                <div class="col">
+                    <a class="fancybox" rel="gallery1" href="/Images/Uploads/Services/@Model.Id/Gallery/@item">
+                        <img src="/Images/Uploads/Services/@Model.Id/Gallery/Thumbs/@item" alt="Alternate Text"/>
+                    </a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <link href="~/Content/jquery.fancybox.css" rel="stylesheet" />
+    <script src="~/Content/GuitJs/ServiceDetails.js"></script>
+    
+    
+    
+    <script>
+        /********************Add to cart*********************/
+        $(function () {
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                $("span.loader").addClass("ib");
+
+                var url = "/cart/AddToCartPartial";
+
+                $.get(url, { id: @Model.Id
+                }, function myfunction(data) {
+                    $(".ajaxcart").html(data);
+                }).done(function () {
+                    $("span.loader").removeClass("ib");
+                    $("div.ajaxmsg").addClass("ib");
+
+                    setTimeout(function () {
+                        $("div.ajaxmsg").fadeOut("fast");
+                        $("div.ajaxmsg").removeClass("ib");
+                    }, 2000);
+                });
+            });
+        });
+/****************************************************/
+    </script>
+
+}

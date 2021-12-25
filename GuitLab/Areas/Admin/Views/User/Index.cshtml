@@ -1,0 +1,83 @@
+﻿@using System.Security.Cryptography
+@model IEnumerable<GuitLab.Models.ViewModels.Account.UserViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<h2>Index</h2>
+
+@if (!Model.Any())
+{
+    <h1>You have not users</h1>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAdress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAdress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                </td>
+
+                <td>
+                    @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new { @class = "delete btn btn-outline-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            /*Page delete query*/
+
+            $("a.delete").click(function () {
+                if (!confirm("Confirm user deletion")) return false;
+            });
+        });
+    </script>
+
+}
